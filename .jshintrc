@@ -1,28 +1,36 @@
 {
-  "node": true,
-  "browser": true,
-  "esnext": true,
   "bitwise": true,
   "camelcase": true,
   "curly": true,
   "eqeqeq": true,
+  "esnext": true,
   "immed": true,
   "indent": 2,
   "latedef": true,
-  "newcap": true,
+  "newcap": false,
   "noarg": true,
   "quotmark": "single",
   "regexp": true,
-  "undef": true,
-  "unused": true,
+  "smarttabs": false,
   "strict": true,
   "trailing": true,
-  "smarttabs": true,
-  "jquery": true,
+  "undef": true,
+  "unused": true,
+
+  // Environments
+  "browser": true,
+  "jquery": false,
+  "mocha": true,
+  "node": false,
+
+  // Globals
   "globals": {
-    "wrap": true,
-    "unwrap": true,
+    "assert": true,
+    "flush": true,
+    "Platform": true,
     "Polymer": true,
-    "Platform": true
+    "unwrap": true,
+    "WCT": true,
+    "wrap": true
   }
 }
