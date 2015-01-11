@@ -2,8 +2,8 @@
   "name": "client-uuid",
   "version": "0.0.0",
   "keywords": [
-    "seed",
     "polymer",
+    "uuid",
     "web-components"
   ],
   "main": "client-uuid.html",
