@@ -11,7 +11,7 @@ The UUID can also be `reset` to create a new value.
 @element client-uuid
 @blurb Element access to a client UUID.
 @status alpha
-@homepage http://polymerlabs.github.io/client-uuid
+@homepage http://pope.github.io/client-uuid
 -->
 <link rel="import" href="../polymer/polymer.html">
 <polymer-element name="client-uuid" hidden attributes="name value">
@@ -63,7 +63,6 @@ The UUID can also be `reset` to create a new value.
        *
        * @attribute name
        * @type string
-       * @required
        * @default 'client-uuid'
        */
       name: 'client-uuid',
@@ -86,6 +85,9 @@ The UUID can also be `reset` to create a new value.
       },
 
       load: function() {
+        if (!this.name) {
+          throw new Error('name is required');
+        }
         this.value = localStorage.getItem(this.name);
         if (!this.value) {
           this.reset();

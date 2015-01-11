@@ -14,16 +14,11 @@
   <polymer-element name="x-demo">
     <template>
       <client-uuid id="uuid" value="{{value}}"></client-uuid>
-      <p>
-        <strong>UUID:</strong> {{value}}
-      </p>
-      <p>
-        Refresh the page to verify the value doesn't change.
-      </p>
-      <p>
-        <button type="button" on-click="{{reset}}">Reset UUID</button> will
-        generate a new UUID.
-      </p>
+      <p><strong>UUID:</strong> {{value}}</p>
+
+      <p>Refresh the page to verify the value doesn't change, as the value is stored inside of <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Storage_API">localStorage</a>.</p>
+
+      <p><button type="button" on-click="{{reset}}">Reset UUID</button> will generate a new UUID.</p>
     </template>
     <script>
     (function() {
