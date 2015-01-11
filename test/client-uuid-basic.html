@@ -7,35 +7,62 @@
   <script src="../../webcomponentsjs/webcomponents.js"></script>
   <script src="../../web-component-tester/browser.js"></script>
 
-  <!-- Step 1: import the element to test -->
   <link rel="import" href="../client-uuid.html">
 
 </head>
 <body>
 
-  <client-uuid id="fixture"></client-uuid>
-
   <script>
-    var myEl = document.getElementById('fixture');
+    var v4Re = /^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i;
 
-    suite('<client-uuid>', function() {
+    suite('<client-uuid> basic', function() {
+      'use strict';
 
-      test('defines the "author" property', function() {
-        assert.equal(myEl.author, 'Dimitri Glazkov');
+      var uuid;
+      var name = 'client-uuid-test-basic';
+
+      setup(function(done) {
+        uuid = document.createElement('client-uuid');
+        uuid.name = name;
+        flush(done);
       });
 
-      test('says hello', function() {
-        assert.equal(myEl.sayHello(), 'client-uuid says, Hello World!');
-        var greetings = myEl.sayHello('greetings Earthlings');
-        assert.equal(greetings, 'client-uuid says, greetings Earthlings');
+      teardown(function() {
+        localStorage.removeItem('client-uuid-test-basic');
       });
 
-      test('fires lasers', function(done) {
-        myEl.addEventListener('client-uuid-lasers-success', function(event) {
-          assert.equal(event.detail.sound, 'Pew pew pew!');
+      test('get value', function() {
+        assert.match(uuid.value, v4Re);
+      });
+
+      test('re-use value', function(done) {
+        var val = uuid.value;
+        var nextUuid = document.createElement('client-uuid');
+        nextUuid.name = name;
+        flush(function() {
+          assert.equal(nextUuid.value, val);
           done();
         });
-        myEl.fireLasers();
+      });
+
+      test('reset value', function(done) {
+        var val = uuid.value;
+        uuid.reset();
+        flush(function() {
+          assert.notEqual(uuid.value, val);
+          assert.equal(localStorage.getItem(name), uuid.value);
+          done();
+        });
+      });
+
+      test('manually set value', function(done) {
+        uuid.value = 'DO_NOT_TRACK_THIS_DEVICE';
+        flush(function() {
+          assert.equal(uuid.value, 'DO_NOT_TRACK_THIS_DEVICE');
+          assert.equal(localStorage.getItem(name),
+                       'DO_NOT_TRACK_THIS_DEVICE');
+          done();
+        });
       });
 
     });

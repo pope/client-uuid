@@ -5,14 +5,40 @@
   <title>client-uuid Demo</title>
 
   <script src="../webcomponentsjs/webcomponents.js"></script>
+  <link rel="import" href="../polymer/polymer.html">
   <link rel="import" href="client-uuid.html">
 
 </head>
 <body unresolved>
 
-  <p>An `client-uuid` looks like this:</p>
+  <polymer-element name="x-demo">
+    <template>
+      <client-uuid id="uuid" value="{{value}}"></client-uuid>
+      <p>
+        <strong>UUID:</strong> {{value}}
+      </p>
+      <p>
+        Refresh the page to verify the value doesn't change.
+      </p>
+      <p>
+        <button type="button" on-click="{{reset}}">Reset UUID</button> will
+        generate a new UUID.
+      </p>
+    </template>
+    <script>
+    (function() {
+      'use strict';
 
-  <client-uuid></client-uuid>
+      Polymer({
+        reset: function() {
+          this.$.uuid.reset();
+        }
+      });
+    })();
+    </script>
+  </polymer-element>
+
+  <x-demo></x-demo>
 
 </body>
 </html>
