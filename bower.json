@@ -11,6 +11,6 @@
     "polymer": "Polymer/polymer#^0.5.2"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^2.0.5"
+    "web-component-tester": "Polymer/web-component-tester#^2.2.3"
   }
 }
