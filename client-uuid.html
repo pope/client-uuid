@@ -1,3 +1,5 @@
+<link rel="import" href="../polymer/polymer.html">
+
 <!--
 Element access to a client UUID. This creates and saves a UUID inside of
 localStorage.
@@ -8,13 +10,14 @@ localStorage.
 
 The UUID can also be `reset` to create a new value.
 
-@element client-uuid
-@blurb Element access to a client UUID.
-@status alpha
-@homepage http://pope.github.io/client-uuid
+@demo
 -->
-<link rel="import" href="../polymer/polymer.html">
-<polymer-element name="client-uuid" hidden attributes="name value">
+<dom-module id="client-uuid">
+  <style>
+    :host {
+      display: none;
+    }
+  </style>
   <script>
   (function() {
     'use strict';
@@ -58,33 +61,31 @@ The UUID can also be `reset` to create a new value.
     };
 
     Polymer({
-      /**
-       * The name to store the UUID inside of localStorage.
-       *
-       * @attribute name
-       * @type string
-       * @default 'client-uuid'
-       */
-      name: 'client-uuid',
+      is: 'client-uuid',
+      properties: {
+        /**
+         * The name to store the UUID inside of localStorage.
+         */
+        name: {
+          type: String,
+          value: 'client-uuid',
+        },
 
-      /**
-       * The generated UUID (version 4).
-       *
-       * @attribute value
-       * @type string
-       */
-      value: null,
-
-      observe: {
-        name: 'load',
-        value: 'save'
+        /**
+         * The generated UUID (version 4).
+         */
+        value: {
+          type: String,
+          notify: true,
+          observer: '_save'
+        }
       },
 
       ready: function() {
-        this.load();
+        this._load();
       },
 
-      load: function() {
+      _load: function() {
         if (!this.name) {
           throw new Error('name is required');
         }
@@ -96,14 +97,12 @@ The UUID can also be `reset` to create a new value.
 
       /**
        * The `reset` method will create a new uuid.
-       *
-       * @method reset
        */
       reset: function() {
         this.value = uuid4();
       },
 
-      save: function() {
+      _save: function() {
         if (this.value) {
           localStorage.setItem(this.name, this.value);
         }
@@ -112,4 +111,4 @@ The UUID can also be `reset` to create a new value.
   })();
   </script>
 
-</polymer-element>
+</dom-module>

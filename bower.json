@@ -1,16 +1,26 @@
 {
   "name": "client-uuid",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "keywords": [
     "polymer",
     "uuid",
+    "web-component",
     "web-components"
   ],
   "main": "client-uuid.html",
+  "homepage": "https://github.com/pope/client-uuid/",
+  "ignore": [
+    "/.*",
+    "/test/",
+    "/demo/"
+  ],
   "dependencies": {
-    "polymer": "Polymer/polymer#^0.5.2"
+    "polymer": "Polymer/polymer#^1.0.0"
   },
   "devDependencies": {
-    "web-component-tester": "Polymer/web-component-tester#^2.2.3"
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "paper-button": "PolymerElements/paper-button#^1.0.0",
+    "paper-styles": "PolymerElements/paper-styles#^1.0.0",
+    "web-component-tester": "*"
   }
 }
