@@ -1,4 +1,5 @@
 <link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../iron-localstorage/iron-localstorage.html">
 
 <!--
 Element access to a client UUID. This creates and saves a UUID inside of
@@ -13,11 +14,20 @@ The UUID can also be `reset` to create a new value.
 @demo
 -->
 <dom-module id="client-uuid">
-  <style>
-    :host {
-      display: none;
-    }
-  </style>
+  <template>
+    <style>
+      :host {
+        display: none;
+      }
+    </style>
+    <iron-localstorage
+        id="storage"
+        name="[[name]]"
+        value="{{value}}"
+        on-iron-localstorage-load-empty="reset"
+        use-raw="true">
+    </iron-localstorage>
+  </template>
   <script>
   (function() {
     'use strict';
@@ -68,7 +78,7 @@ The UUID can also be `reset` to create a new value.
          */
         name: {
           type: String,
-          value: 'client-uuid',
+          value: 'client-uuid'
         },
 
         /**
@@ -76,22 +86,7 @@ The UUID can also be `reset` to create a new value.
          */
         value: {
           type: String,
-          notify: true,
-          observer: '_save'
-        }
-      },
-
-      ready: function() {
-        this._load();
-      },
-
-      _load: function() {
-        if (!this.name) {
-          throw new Error('name is required');
-        }
-        this.value = localStorage.getItem(this.name);
-        if (!this.value) {
-          this.reset();
+          notify: true
         }
       },
 
@@ -100,12 +95,6 @@ The UUID can also be `reset` to create a new value.
        */
       reset: function() {
         this.value = uuid4();
-      },
-
-      _save: function() {
-        if (this.value) {
-          localStorage.setItem(this.name, this.value);
-        }
       }
     });
   })();
